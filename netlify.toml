@@ -1,0 +1,4 @@
+# Netlify: static site, no build step. The _headers file next to this handles caching.
+[build]
+  publish = "."
+  command = ""

@@ -1,0 +1,11 @@
+# Netlify / Cloudflare Pages headers. The service worker must never be served stale,
+# otherwise phones keep the old version forever.
+/sw.js
+  Cache-Control: no-cache, no-store, must-revalidate
+/index.html
+  Cache-Control: no-cache
+/
+  Cache-Control: no-cache
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
