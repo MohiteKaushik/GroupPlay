@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PlayAnywhere</string>
+    <string name="webview_missing">PlayAnywhere needs the Android System WebView component, which is missing or being updated on this phone. Update it from the Play Store, then open the app again.</string>
+</resources>

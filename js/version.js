@@ -1,1 +1,1 @@
-window.GP_VERSION = '2026.10.26-4';
+window.GP_VERSION = '2026.11.22-2';

@@ -187,11 +187,32 @@
     }
   }
 
+  /* Housekeeping. The database has no expiry of its own, so every device remembers the rooms it hosted and,
+   * the next time it hosts, deletes the ones older than 12 hours that were never ended. Best effort, silent. */
+  const HOSTED_KEY = 'gp.hosted';
+  const HOSTED_MAX_AGE_MS = 12 * 60 * 60 * 1000;
+  function readHosted() { try { const v = JSON.parse(localStorage.getItem(HOSTED_KEY) || '[]'); return Array.isArray(v) ? v.filter(x => x && validCode(x.code) && typeof x.at === 'number') : []; } catch (e) { return []; } }
+  function writeHosted(list) { try { localStorage.setItem(HOSTED_KEY, JSON.stringify(list.slice(-20))); } catch (e) { /* ignore */ } }
+  function rememberHosted(code) { const list = readHosted().filter(x => x.code !== code); list.push({ code, at: Date.now() }); writeHosted(list); }
+  function forgetHosted(code) { writeHosted(readHosted().filter(x => x.code !== code)); }
+  function sweepOldRooms() {
+    const now = Date.now();
+    const list = readHosted();
+    const old = list.filter(x => now - x.at > HOSTED_MAX_AGE_MS);
+    if (!old.length) return;
+    writeHosted(list.filter(x => now - x.at <= HOSTED_MAX_AGE_MS));
+    old.forEach(x => { fetch(`${base()}/rooms/${x.code}.json`, { method: 'DELETE', keepalive: true }).catch(() => { rememberStale(x); }); });
+  }
+  /** A delete that failed (offline) is put back so the next sweep retries it. */
+  function rememberStale(x) { const list = readHosted(); if (!list.some(y => y.code === x.code)) { list.unshift(x); writeHosted(list); } }
+
   /** Host: create a fresh room and return it connected. */
   async function createRoom(hostName) {
+    sweepOldRooms();
     const code = newCode();
     const room = new Room(code);
     const me = room.me;
+    rememberHosted(code);
     await fetch(room.url('', 'print=silent'), { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ meta: { host: me, game: 'lobby', created: SERVER_TIME, v: 1 }, players: { [me]: { name: hostName, joined: SERVER_TIME, seen: SERVER_TIME } } }) }).then(r => { if (!r.ok) throw new Error('Could not create room (HTTP ' + r.status + ')'); });
     await room.connect();
     room.startHeartbeat();
@@ -223,5 +244,5 @@
   }
 
   window.GP = window.GP || {};
-  window.GP.net = { configured, createRoom, joinRoom, joinUrl, newCode, normaliseCode, validCode, playerId, ping, SERVER_TIME, getAt, STALE_MS };
+  window.GP.net = { configured, createRoom, joinRoom, joinUrl, forgetHosted, newCode, normaliseCode, validCode, playerId, ping, SERVER_TIME, getAt, STALE_MS };
 })();

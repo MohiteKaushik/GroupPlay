@@ -1,4 +1,4 @@
-/* GroupPlay game database.
+/* PlayAnywhere game database.
  * See SCHEMA.md for every field and the allowed values.
  * Plain JS on purpose: works from file://, no build, comments allowed.
  * Run `node tools/validate-games.js` after editing.
@@ -1388,7 +1388,7 @@ window.GP_GAMES = [
   },
   {
     id: 'pictionary',
-    name: 'Pictionary',
+    name: 'Draw and Guess',
     tagline: 'Draw it badly. Your team guesses anyway.',
     category: 'drawing',
     players: { min: 4, max: 16 },
@@ -1416,7 +1416,7 @@ window.GP_GAMES = [
   },
   {
     id: 'taboo',
-    name: 'Taboo',
+    name: 'Forbidden Words',
     tagline: 'Describe the word without saying the five forbidden words.',
     category: 'word',
     players: { min: 4, max: 16 },
@@ -1527,7 +1527,7 @@ window.GP_GAMES = [
   {
     id: 'heads-up',
     name: 'Guess the Word on My Forehead',
-    tagline: 'Phone on your forehead. Friends shout clues. Tilt to score.',
+    tagline: 'Phone on your forehead. Friends shout clues. A helper taps to score.',
     category: 'word',
     players: { min: 3, max: 15 },
     ages: ['kids', 'teens', 'adults', 'elders'],
@@ -1540,7 +1540,7 @@ window.GP_GAMES = [
     teams: false,
     tool: 'headsup',
     tags: ['classic', 'loud', 'quick'],
-    setup: 'Open the Heads Up tool, pick a deck, and hold the phone against your forehead with the screen facing the others.',
+    setup: 'Open the Forehead Guess tool, pick a deck, and hold the phone against your forehead with the screen facing the others.',
     rules: [
       'Everyone else sees the word and shouts clues without saying the word itself.',
       'When you guess right, tap the Correct button; if stuck, tap Pass.',
@@ -1774,7 +1774,7 @@ window.GP_GAMES = [
   },
   {
     id: 'lip-sync-battle',
-    name: 'Lip Sync Battle',
+    name: 'Lip Sync Showdown',
     tagline: 'Perform a song without singing a note. Commitment is everything.',
     category: 'music',
     players: { min: 4, max: 20 },

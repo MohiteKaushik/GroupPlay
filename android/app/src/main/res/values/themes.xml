@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- One theme for light and dark: the colours and the light/dark flags come from values/ and
+         values-night/. Attributes newer than the oldest supported Android are ignored there. -->
+    <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/app_bg</item>
+        <item name="android:colorBackground">@color/app_bg</item>
+        <item name="android:statusBarColor">@color/app_bg</item>
+        <item name="android:navigationBarColor">@color/app_bg</item>
+        <item name="android:windowLightStatusBar">@bool/light_bars</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">@bool/light_bars</item>
+        <!-- Tells the web engine which colour scheme the page should use (prefers-color-scheme). -->
+        <item name="android:isLightTheme" tools:targetApi="29">@bool/light_bars</item>
+        <!-- Android 12+ launch screen: app icon on the page colour. -->
+        <item name="android:windowSplashScreenBackground" tools:targetApi="31">@color/app_bg</item>
+    </style>
+</resources>

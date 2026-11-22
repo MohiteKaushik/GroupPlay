@@ -1,5 +1,5 @@
-/* GroupPlay prompt decks. Referenced by games via tool: 'prompts:<deckId>'
- * and by the Heads Up / Imposter tools. Family-safe. No song lyrics.
+/* PlayAnywhere prompt decks. Referenced by games via tool: 'prompts:<deckId>'
+ * and by the Forehead Guess / Imposter tools. Family-safe. No song lyrics.
  * Items are strings, or objects for decks that carry extra data
  * (taboo: {word, avoid[5]}; imposter: {word, category}).
  */
@@ -31,7 +31,7 @@ window.GP_DECKS = {
     ]
   },
   pictionary: {
-    title: 'Pictionary',
+    title: 'Things to Draw',
     items: [
       'Auto-rickshaw', 'Coconut', 'Temple bell', 'Cricket bat', 'Tractor', 'Well', 'Hut', 'Bullock cart', 'Kite', 'Mango',
       'Peacock', 'Cow', 'Camel', 'Elephant', 'Parrot', 'Fish', 'Butterfly', 'Snake', 'Tortoise', 'Owl',
@@ -42,7 +42,7 @@ window.GP_DECKS = {
     ]
   },
   taboo: {
-    title: 'Taboo',
+    title: 'Forbidden Words',
     items: [
       { word: 'Cricket', avoid: ['bat', 'ball', 'India', 'match', 'sport'] },
       { word: 'Chai', avoid: ['tea', 'milk', 'sugar', 'cup', 'hot'] },

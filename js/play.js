@@ -334,7 +334,7 @@
 
     const wordOf = (idx) => { const it = DECKS[deck].items[idx]; return typeof it === 'string' ? it : it.word; };
     const setupView = () => html`
-      ${header('Heads Up', query)}
+      ${header('Forehead Guess', query)}
       <section class="card">
         <p class="muted">One person holds the phone on their forehead, screen facing the others. The others act or describe. A friend taps <b>Got it</b> or <b>Pass</b>.</p>
         <label class="field">Deck</label>
@@ -348,7 +348,7 @@
       <div class="display-word tall" id="hu-word">${wordOf(words[i])}</div>
       <div class="pad-grid"><button type="button" class="btn pad red" data-action="pass">Pass →</button><button type="button" class="btn pad green" data-action="got">Got it ✓</button></div>`;
     const resultView = () => html`
-      ${header('Heads Up · result', query)}
+      ${header('Forehead Guess · result', query)}
       <section class="card center"><div class="display-big" style="font-size:4rem">${got.length}</div><p class="muted">correct in ${secs} seconds</p></section>
       <section class="card">${got.length ? html`<h3>Got</h3><p>${got.join(', ')}</p>` : ''}${passed.length ? html`<h3>Passed</h3><p class="muted">${passed.join(', ')}</p>` : ''}</section>
       <div class="grid-2"><button type="button" class="btn big" data-action="setup">Change deck</button><button type="button" class="btn primary big" data-action="start">Next player</button></div>`;

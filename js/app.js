@@ -18,9 +18,11 @@
   const PROP_ORDER = ['paper', 'music', 'balloons', 'ball', 'chairs', 'cups', 'blindfold', 'spoons', 'cards', 'rope', 'cloth', 'bowl', 'bottle', 'bucket', 'coins', 'torch'];
   const TOOL_LABEL = {
     timer: 'Timer', scoreboard: 'Scoreboard', teams: 'Team divider', buzzer: 'Buzzer', picker: 'Random picker',
-    'random-stop': 'Random stop (music referee)', mafia: 'Mafia narrator', imposter: 'Imposter', headsup: 'Heads Up'
+    'random-stop': 'Random stop (music referee)', mafia: 'Mafia narrator', imposter: 'Imposter', headsup: 'Forehead Guess'
   };
   const toolLabel = (tool) => tool.startsWith('prompts:') ? (window.GP_DECKS[tool.slice(8)] || {}).title || 'Prompts' : TOOL_LABEL[tool] || tool;
+  /** The public website's address without the scheme, for telling people where to go. */
+  const siteName = () => String((window.GP_CONFIG && window.GP_CONFIG.joinBase) || location.host).replace(/^https?:\/\//, '').replace(/\/.*$/, '');
   const toolHref = (tool) => tool.startsWith('prompts:') ? `#/tool/prompts/${tool.slice(8)}` : `#/tool/${tool}`;
 
   // --- Shared pieces -------------------------------------------------------
@@ -80,11 +82,12 @@
 
   route('#/about', () => html`
     <section class="card">
-      <h2>About GroupPlay</h2>
-      <p>Built for the moment when a group is together, bored, and nobody can remember a single game. One person needs a phone; nobody needs to download anything.</p>
-      <p>After the first visit the whole site is stored on your phone and works with no signal. Bookmarks and scores are saved on this phone only.</p>
+      <h2>About PlayAnywhere</h2>
+      <p>Built for the moment when a group is together, bored, and nobody can remember a single game. One phone is enough to host; everyone else just plays.</p>
+      <p>${window.GP.native && window.GP.native.isApp ? 'Everything is inside the app, so it works with no signal.' : 'After the first visit the whole site is stored on your phone and works with no signal.'} Bookmarks and scores are saved on this phone only.</p>
       <p>Sounds are generated on the phone, so there are no audio files to download. Voice narration uses your phone's built-in speech.</p>
-      <p class="muted small">Version ${window.GP_VERSION || 'dev'} · ${GAMES.length} games</p>
+      <p>Play together works across the app and the website: some players can use the app, others just open <b>${siteName()}</b> in a browser, all in the same room.</p>
+      <p class="muted small">Version ${window.GP_VERSION || 'dev'} · ${GAMES.length} games · <a href="privacy.html">Privacy policy</a></p>
       <a class="btn" href="#/">Back</a>
     </section>`);
 
@@ -354,8 +357,8 @@
     <div class="tiles">
       <a class="tile" href="#/tool/mafia"><b>🕵️ Mafia narrator</b><span>Secret roles + full script</span></a>
       <a class="tile" href="#/tool/imposter"><b>🤫 Imposter</b><span>One phone or everyone's, no internet</span></a>
-      <a class="tile" href="#/tool/headsup"><b>🙆 Heads Up</b><span>Word on forehead, 60 seconds</span></a>
-      <a class="tile" href="#/tool/prompts/charades"><b>🃏 Prompt decks</b><span>Charades, Bollywood, Taboo, Truth…</span></a>
+      <a class="tile" href="#/tool/headsup"><b>🙆 Forehead Guess</b><span>Word on forehead, 60 seconds</span></a>
+      <a class="tile" href="#/tool/prompts/charades"><b>🃏 Prompt decks</b><span>Charades, Bollywood, Truth or Dare…</span></a>
     </div>
     <h2 style="margin-top:1.2rem">On everyone's phone</h2>
     <div class="tiles">
@@ -366,6 +369,8 @@
   function initOfflineBadge() {
     const badge = document.getElementById('offline-badge');
     const set = (text, ready) => { badge.textContent = text; badge.classList.toggle('ready', !!ready); };
+    // Inside the Android app every file ships in the app itself: always offline, no service worker involved.
+    if (window.GP.native && window.GP.native.isApp) { set('Works offline', true); return; }
     if (!('serviceWorker' in navigator) || location.protocol === 'file:') { set('Online only'); return; }
     // True when this page was already served by a service worker: any install from now on is an update.
     const hadController = !!navigator.serviceWorker.controller;

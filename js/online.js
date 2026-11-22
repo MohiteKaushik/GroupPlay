@@ -532,7 +532,11 @@
 
     function bindActions(d) {
       on('leave', () => go('#/online'));
-      on('share', async () => { const url = net.joinUrl(room.code); try { if (navigator.share) await navigator.share({ title: 'Join my GroupPlay room', text: 'Room code ' + room.code, url }); else { await navigator.clipboard.writeText(url); toast('Link copied'); } } catch (e) { /* cancelled */ } });
+      on('share', async () => {
+        const url = net.joinUrl(room.code), title = 'Join my PlayAnywhere room', text = 'Room code ' + room.code;
+        if (window.GP.native && window.GP.native.share(title, text, url)) return; // Android app: native share sheet
+        try { if (navigator.share) await navigator.share({ title, text, url }); else { await navigator.clipboard.writeText(url); toast('Link copied'); } } catch (e) { /* cancelled */ }
+      });
       on('kick', (el) => room.update({ [`players/${el.dataset.pid}`]: null, [`acts/${el.dataset.pid}`]: null, [`priv/${el.dataset.pid}`]: null }));
       on('choose', (el) => { cfg = Object.assign({ game: el.dataset.v }, GAMES[el.dataset.v].defaults(d)); render(); });
       on('cancelcfg', () => { cfg = null; render(); });
@@ -541,7 +545,7 @@
       on('lobby', () => hostWrite({ 'meta/game': 'lobby', state: null, priv: null, acts: null }));
       on('endroom', (el) => {
         // Two taps within 3 s, no modal dialog.
-        if (el.dataset.armed) { room.remove('').then(() => { saveRoomRef(null); go('#/online'); }); return; }
+        if (el.dataset.armed) { const ended = room.code; room.remove('').then(() => { net.forgetHosted(ended); saveRoomRef(null); go('#/online'); }); return; }
         el.dataset.armed = '1'; const label = el.textContent; el.textContent = 'Tap again to end for everyone';
         setTimeout(() => { if (el.isConnected) { delete el.dataset.armed; el.textContent = label; } }, 3000);
       });

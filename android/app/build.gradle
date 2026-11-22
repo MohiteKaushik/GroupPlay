@@ -1,0 +1,84 @@
+plugins {
+    id 'com.android.application'
+}
+
+// ---------------------------------------------------------------------------------------------
+// Everything that changes between releases comes from the website's own files, so there is one
+// source of truth:
+//   ../js/version.js  →  versionName "2026.11.22-1" and versionCode 26112201 (must grow every upload)
+//   ../js/config.js   →  joinBase, the public site whose join links this app opens
+// The site's files are copied into src/main/assets/www by `node tools/sync-android.js`.
+// ---------------------------------------------------------------------------------------------
+def webRoot = rootProject.file('..')
+
+def versionText = new File(webRoot, 'js/version.js').getText('UTF-8')
+def versionMatch = (versionText =~ "(\\d{4})\\.(\\d{2})\\.(\\d{2})-(\\d+)")
+if (!versionMatch.find()) {
+    throw new GradleException("js/version.js must contain a version like 2026.11.22-1 (run: node tools/release.js)")
+}
+def appVersionName = versionMatch.group(0)
+def appVersionCode = ((versionMatch.group(1) as int) - 2000) * 1000000 +
+        (versionMatch.group(2) as int) * 10000 +
+        (versionMatch.group(3) as int) * 100 +
+        Math.min(versionMatch.group(4) as int, 99)
+
+def configText = new File(webRoot, 'js/config.js').getText('UTF-8')
+def siteMatch = (configText =~ "joinBase:\\s*'https://([^'/]+)")
+if (!siteMatch.find()) {
+    throw new GradleException("js/config.js: joinBase must be the public https address of the website")
+}
+def appSiteHost = siteMatch.group(1)
+
+if (!new File(projectDir, 'src/main/assets/www/index.html').exists()) {
+    throw new GradleException("The site has not been copied into the app. Run: node tools/sync-android.js")
+}
+
+def uploadKeystore = System.getenv('UPLOAD_KEYSTORE_FILE')
+
+android {
+    namespace 'com.ospjnprojects.playanywhere'
+    compileSdk 36
+
+    defaultConfig {
+        applicationId 'com.ospjnprojects.playanywhere'
+        minSdk 24
+        targetSdk 36
+        versionCode appVersionCode
+        versionName appVersionName
+        manifestPlaceholders = [siteHost: appSiteHost]
+    }
+
+    signingConfigs {
+        release {
+            if (uploadKeystore) {
+                storeFile file(uploadKeystore)
+                storePassword System.getenv('UPLOAD_KEYSTORE_PASSWORD')
+                keyAlias System.getenv('UPLOAD_KEY_ALIAS')
+                keyPassword System.getenv('UPLOAD_KEY_PASSWORD')
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            if (uploadKeystore) {
+                signingConfig signingConfigs.release
+            }
+        }
+        debug {
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-debug'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+}

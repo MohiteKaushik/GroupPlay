@@ -2,7 +2,7 @@
 
 "Play together" lets one phone host a room and everyone else join by a 6-character code or a QR code. Games then run on every phone at once: secret roles land on the right phone, votes and buzzes count instantly.
 
-The site itself stays static (Netlify / Cloudflare Pages). Live rooms need one small extra piece: a place that keeps a connection open to every phone and pushes changes. GroupPlay talks to it with plain HTTP (`fetch` + the browser's built-in `EventSource`), so there is no SDK to download and the whole client is about 5 KB. Two options speak the same protocol:
+The site itself stays static (Netlify / Cloudflare Pages). Live rooms need one small extra piece: a place that keeps a connection open to every phone and pushes changes. PlayAnywhere talks to it with plain HTTP (`fetch` + the browser's built-in `EventSource`), so there is no SDK to download and the whole client is about 5 KB. Two options speak the same protocol:
 
 | | Firebase Realtime Database | `tools/relay.js` |
 |---|---|---|

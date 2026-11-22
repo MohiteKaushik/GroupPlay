@@ -1,4 +1,4 @@
-/* GroupPlay — claymorphism UI. Mobile first, system fonts only, light + dark, reduced-motion safe. */
+/* PlayAnywhere — claymorphism UI. Mobile first, system fonts only, light + dark, reduced-motion safe. */
 :root {
   --bg: #f1ebe2;
   --bg-2: #e8e0d4;
@@ -84,6 +84,7 @@ main#app.route-enter > *:nth-child(2) { animation-delay: .05s; } main#app.route-
 header.top {
   position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: .5rem;
   padding: .55rem .9rem; padding-top: max(.55rem, env(safe-area-inset-top));
+  background: var(--bg); /* fallback for web engines without color-mix */
   background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: blur(10px);
 }
 header.top .brand { font-weight: 900; font-size: 1.15rem; letter-spacing: -.02em; text-decoration: none; color: var(--text); flex: 1; display: flex; align-items: center; gap: .45rem; }
@@ -186,7 +187,7 @@ ol.rules li::marker { font-weight: 900; color: var(--accent); }
 ul.plain { padding-left: 1.2rem; margin: 0; }
 ul.plain li { margin: .35rem 0; }
 .callout { background: var(--accent-soft); padding: .7rem .9rem; border-radius: 16px; box-shadow: var(--clay-in); }
-.actions-sticky { position: sticky; bottom: 0; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); padding: .7rem 0 calc(.5rem + env(safe-area-inset-bottom)); display: flex; gap: .55rem; }
+.actions-sticky { position: sticky; bottom: 0; background: var(--bg); background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); padding: .7rem 0 calc(.5rem + env(safe-area-inset-bottom)); display: flex; gap: .55rem; }
 .actions-sticky .btn { flex: 1; padding-left: .5rem; padding-right: .5rem; }
 
 /* ---------- Home ---------- */

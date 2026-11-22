@@ -22,4 +22,11 @@ const counter = m[1] === today ? parseInt(m[2], 10) + 1 : 1;
 const version = `${today}-${counter}`;
 fs.writeFileSync(swPath, sw.replace(m[0], `const VERSION = '${version}';`));
 fs.writeFileSync(path.join(root, 'js', 'version.js'), `window.GP_VERSION = '${version}';\n`);
-console.log(`Version ${version} written to sw.js and js/version.js. Deploy the whole folder.`);
+console.log(`Version ${version} written to sw.js and js/version.js.`);
+
+// Keep the Android project's bundled copy of the site in step (only matters for building the app on this PC;
+// the GitHub build makes its own copy).
+if (fs.existsSync(path.join(root, 'android', 'app'))) {
+  execFileSync(process.execPath, [path.join(__dirname, 'sync-android.js')], { stdio: 'inherit' });
+}
+console.log('Next: git add . && git commit -m "..." && git push   (Netlify redeploys the site; GitHub builds the app)');

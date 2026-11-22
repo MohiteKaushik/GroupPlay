@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Must match the page background colour in css/app.css so the window and the page look like one surface while loading. -->
+    <color name="app_bg">#F1EBE2</color>
+    <color name="ic_launcher_background">#D9480F</color>
+    <!-- true = dark icons on a light bar -->
+    <bool name="light_bars">true</bool>
+</resources>

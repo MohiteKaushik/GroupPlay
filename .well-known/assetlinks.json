@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.ospjnprojects.playanywhere",
+      "sha256_cert_fingerprints": [
+        "AA:A4:0D:51:9A:7E:0A:91:82:D6:CD:B7:F2:51:A3:F8:03:8F:11:C0:D4:FD:DA:38:EB:FE:3B:D2:C2:72:B1:1B"
+      ]
+    }
+  }
+]

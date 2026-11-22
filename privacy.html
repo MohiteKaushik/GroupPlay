@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Privacy policy — PlayAnywhere</title>
+  <meta name="description" content="What the PlayAnywhere app and website store, where, and how to have it removed.">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/app.css">
+  <style>
+    main { max-width: 680px; margin: 0 auto; padding: 1rem; }
+    main h1 { margin-top: .6rem; }
+    main h2 { margin-top: 1.4rem; }
+    main table { width: 100%; border-collapse: collapse; margin: .5rem 0 1rem; font-size: .95rem; }
+    main th, main td { text-align: left; vertical-align: top; padding: .5rem .5rem .5rem 0; border-bottom: 1px solid var(--line); }
+    main th { font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <main>
+    <p><a class="btn sm" href="./">← Back to PlayAnywhere</a></p>
+    <h1>Privacy policy</h1>
+    <p class="muted">Applies to the PlayAnywhere Android app (package <code>com.ospjnprojects.playanywhere</code>) and the PlayAnywhere website. Last updated: 22 November 2026.</p>
+
+    <section class="card">
+      <h2 style="margin-top:0">The short version</h2>
+      <p>PlayAnywhere has no accounts, no advertising, no analytics and no tracking. It does not ask for your location, contacts, camera, microphone, photos or files. Almost everything it remembers stays on your own phone.</p>
+      <p>The one exception is <b>Play together</b>. If you host or join an online room, the nickname you type and what you do in that room are sent to a database so the other phones in the room can see them. Details are below.</p>
+    </section>
+
+    <h2>What stays on your device</h2>
+    <p>Your last group setup, saved games, the "played tonight" list, scores, team lists, names typed into the host tools, sound and voice settings, and games in progress are stored only in the app's or browser's local storage on your device. We cannot see any of it. You can remove it at any time by clearing the app's storage (Android: Settings → Apps → PlayAnywhere → Storage → Clear storage), uninstalling the app, or clearing site data in your browser.</p>
+
+    <h2>What is sent when you use Play together</h2>
+    <table>
+      <thead><tr><th>Data</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>The nickname you type (up to 20 characters). It does not have to be your real name.</td><td>So other players in the room can see who is who.</td></tr>
+        <tr><td>A random player ID created on your device. It is not linked to your phone number, Google account or advertising ID.</td><td>So you return to the same seat if your connection drops.</td></tr>
+        <tr><td>What you do in the room: votes, picks, buzzes, the role or word dealt to you, scores, and the time your phone was last seen.</td><td>To run the game on every phone in the room.</td></tr>
+      </tbody>
+    </table>
+    <p>This data is stored in a Firebase Realtime Database operated by Google, in Google's Singapore region, under a random six-character room code. It is sent over an encrypted connection (HTTPS). Anyone who has the room code can read that room's data, so share the code only with the people you are playing with, and do not type anything private as a nickname.</p>
+    <p>Google, as the provider of that database, and Netlify, as the host of the website, process technical connection data such as IP addresses in their server logs, as any internet service does. We do not receive or use those logs to identify you.</p>
+
+    <h2>How long room data is kept</h2>
+    <p>A room is deleted when its host ends it. A room its host did not end is deleted automatically the next time that host creates a room, once it is more than 12 hours old. Rooms left over after that are removed by us at least once every 90 days. Nothing else is retained.</p>
+
+    <h2>Sharing</h2>
+    <p>We do not sell data and do not share it with anyone for advertising or analytics. Room data is visible to the other people in the same room, and is processed by Google (Firebase) solely to store and deliver it.</p>
+
+    <h2>Permissions the Android app uses</h2>
+    <p><b>Internet</b>, used only by Play together. <b>Vibration</b>, for timer and buzzer feedback. The app requests no other permissions. Voice narration uses the text-to-speech engine already installed on your phone.</p>
+
+    <h2>Children</h2>
+    <p>PlayAnywhere is intended to be operated by teenagers and adults who are organising games for a group, which may include children playing in person. It is not directed at children under 13 and we do not knowingly collect personal data from them. If you believe a child has entered personal information in an online room, contact us and we will delete that room.</p>
+
+    <h2>Asking for deletion</h2>
+    <p>To have an online room deleted, email <a href="mailto:os.pjnprojects@gmail.com">os.pjnprojects@gmail.com</a> with the room code. We will delete it within 7 days. Data stored on your device is under your control and can be removed as described above.</p>
+
+    <h2>Changes</h2>
+    <p>If this policy changes, the new version will be published on this page with a new date. If a change affects what is collected, the app's Play Store listing will be updated at the same time.</p>
+
+    <h2>Contact</h2>
+    <p>OSPJN Projects · <a href="mailto:os.pjnprojects@gmail.com">os.pjnprojects@gmail.com</a></p>
+    <p class="foot"><a href="./">PlayAnywhere</a></p>
+  </main>
+</body>
+</html>

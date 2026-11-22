@@ -1,6 +1,6 @@
 {
-  "name": "GroupPlay — pick a game for your group",
-  "short_name": "GroupPlay",
+  "name": "PlayAnywhere — pick a game for your group",
+  "short_name": "PlayAnywhere",
   "description": "Party and group games you can play right now, offline. One phone is enough.",
   "start_url": "./",
   "scope": "./",

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The smiley from icons/icon.svg, scaled into the adaptive-icon safe zone (the middle 66 of 108). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M32.7,46.2a8.3,8.3 0 1,0 16.6,0a8.3,8.3 0 1,0 -16.6,0z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M58.7,46.2a8.3,8.3 0 1,0 16.6,0a8.3,8.3 0 1,0 -16.6,0z" />
+    <path
+        android:pathData="M35.8,64.4c5.2,9.1 31.2,9.1 36.4,0"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"
+        android:strokeWidth="6.8" />
+</vector>

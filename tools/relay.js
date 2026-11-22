@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* GroupPlay relay: a tiny live-room server speaking the same REST + Server-Sent-Events protocol as the
+/* PlayAnywhere relay: a tiny live-room server speaking the same REST + Server-Sent-Events protocol as the
  * Firebase Realtime Database (the subset js/net.js uses). Also serves the site itself, so a laptop on a
  * phone hotspot can run the whole thing with NO internet: everyone opens http://<laptop-ip>:8787/.
  *
@@ -151,7 +151,7 @@ function serveStatic(req, res, url) {
 }
 
 server.listen(PORT, '0.0.0.0', () => {
-  console.log(`GroupPlay relay on port ${PORT}, serving ${DIR}`);
+  console.log(`PlayAnywhere relay on port ${PORT}, serving ${DIR}`);
   const ips = Object.values(os.networkInterfaces()).flat().filter(i => i && i.family === 'IPv4' && !i.internal).map(i => i.address);
   console.log('Open on phones (same Wi-Fi / hotspot):');
   (ips.length ? ips : ['127.0.0.1']).forEach(ip => console.log(`  http://${ip}:${PORT}/`));

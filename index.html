@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>GroupPlay — pick a game for your group</title>
+  <title>PlayAnywhere — pick a game for your group</title>
   <meta name="description" content="Tell it how many people, who they are and what you have. It picks party games you can play right now — offline, no download, no sign-up.">
   <meta name="theme-color" content="#faf7f2" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#15120f" media="(prefers-color-scheme: dark)">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="GroupPlay">
+  <meta name="apple-mobile-web-app-title" content="PlayAnywhere">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
@@ -18,19 +18,20 @@
 </head>
 <body>
   <header class="top">
-    <a class="brand" href="#/" aria-label="GroupPlay home">
+    <a class="brand" href="#/" aria-label="PlayAnywhere home">
       <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="#d9480f"/><circle cx="11" cy="13" r="3.2" fill="#fff"/><circle cx="21" cy="13" r="3.2" fill="#fff"/><path d="M9 20c2 3.5 12 3.5 14 0" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg>
-      GroupPlay
+      PlayAnywhere
     </a>
     <button type="button" id="sound-toggle" class="sound-toggle" aria-label="toggle button sounds" title="Button sounds">🔔</button>
     <span id="offline-badge" class="offline-badge" title="Once this shows 'Works offline', the whole site is saved on this phone.">Loading…</span>
   </header>
   <main id="app" aria-live="polite">
-    <noscript><section class="card"><h2>JavaScript is off</h2><p>GroupPlay runs entirely on your phone and needs JavaScript. Nothing is sent anywhere.</p></section></noscript>
+    <noscript><section class="card"><h2>JavaScript is off</h2><p>PlayAnywhere runs entirely on your phone and needs JavaScript. Nothing is sent anywhere.</p></section></noscript>
   </main>
 
   <script src="js/version.js"></script>
   <script src="js/config.js"></script>
+  <script src="js/native.js"></script>
   <script src="js/games.js"></script>
   <script src="js/decks.js"></script>
   <script src="js/engine.js"></script>

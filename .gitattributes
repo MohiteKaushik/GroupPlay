@@ -1,0 +1,8 @@
+# Keep line endings stable whatever the PC: the Linux build machine needs LF in shell scripts.
+* text=auto eol=lf
+*.bat text eol=crlf
+*.png binary
+*.jar binary
+*.jks binary
+*.aab binary
+*.apk binary

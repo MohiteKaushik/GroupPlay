@@ -1,4 +1,4 @@
-# GroupPlay
+# PlayAnywhere
 
 A website that tells a group what to play. One person answers four questions (how many people, phones, who is playing, what you have) and gets games that fit, with rules written to be read aloud. Includes host tools (timer, scoreboard, team divider, buzzer, random picker, musical-chairs referee) and phone-based games (Mafia narrator, Imposter, Heads Up, prompt decks).
 
@@ -26,7 +26,8 @@ js/app.js             home, wizard, results, game page, browse, saved, tools ind
 js/tools.js           timer, random stop, scoreboard, teams, buzzer, picker
 js/play.js            Mafia narrator, Imposter, Heads Up, prompt deck viewer
 js/version.js         version string shown on the About page (written by release script)
-js/config.js          ONE setting: relayUrl, which switches "Play together" on (see MULTIPLAYER.md)
+js/config.js          relayUrl (switches "Play together" on) and joinBase (the public site address)
+js/native.js          bridge to the Android app: speech, keep-awake, share (no-ops in a browser)
 js/net.js             live rooms over HTTP + Server-Sent Events (Firebase REST protocol, no SDK)
 js/qr.js              QR code encoder (no library) for the join link
 js/online.js          Play together: lobby, Imposter, Mafia (silent night), Quick Vote, Buzzer
@@ -41,6 +42,13 @@ tools/relay.js            live-room server + static server; run it on a hotspot 
 tools/test-qr.js          encodes sample strings and decodes them with OpenCV
 MULTIPLAYER.md        how to switch on Play together (Firebase in 5 minutes, or the relay)
 SCHEMA.md             how to write a game entry
+privacy.html          privacy policy (required by Google Play; linked from About)
+.well-known/assetlinks.json   lets join links open the Android app
+android/              the Android app: a native shell that carries this site inside it (see PLAYSTORE.md)
+.github/workflows/android.yml   builds the signed .aab and a test .apk on every push (copy of android/ci/android.yml; see PLAYSTORE.md step 1)
+store/                Play Store listing text, icon, feature graphic, screenshots
+tools/sync-android.js copies the site into the Android project (run by release.js and by the build)
+PLAYSTORE.md          step by step: from this folder to live on Google Play
 EXPLAINERS.md         how to write an animated explainer
 ```
 
@@ -77,6 +85,10 @@ Drag the folder onto app.netlify.com/drop, or connect the repository with no bui
 Create a project, framework preset *None*, build command empty, output directory `/`. `_headers` is picked up automatically.
 
 Both give HTTPS, which the service worker and the "install to home screen" prompt require.
+
+## Android app
+
+`android/` is a one-screen native app (Java, no third-party libraries, Android 7.0 and up, targets Android 16) that serves this site to a web view from files bundled inside the app. `js/native.js` is the page's side of a small bridge for what Android's embedded web engine lacks: text to speech, keeping the screen on, and the share sheet. There is no second codebase: edit the site, run `node tools/release.js`, push, and GitHub Actions builds `PlayAnywhere-<version>.aab` (for Play) and `.apk` (for testing). The app's version name and version code are derived from `js/version.js`, and the site address it claims comes from `joinBase` in `js/config.js`. `PLAYSTORE.md` covers signing, testing and the Play Console.
 
 ## Play together (multiplayer)
 

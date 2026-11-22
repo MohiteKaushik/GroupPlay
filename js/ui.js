@@ -131,6 +131,8 @@
   // --- Screen wake lock (keeps the phone awake during timers / narration) -
   let wakeLock = null;
   async function keepAwake(onOff) {
+    const native = window.GP.native;
+    if (native && native.canKeepAwake) { native.keepAwake(onOff); return; } // Android app: a window flag, no web API
     try {
       if (onOff && 'wakeLock' in navigator && !wakeLock) {
         wakeLock = await navigator.wakeLock.request('screen');
@@ -145,12 +147,14 @@
 
   // --- Speech (on-device text-to-speech, no network) -----------------------
   let currentUtterance = null; // kept referenced: Chrome garbage-collects utterances mid-speech and never fires onend
+  const nativeSpeech = () => { const n = window.GP.native; return n && n.canSpeak ? n : null; }; // Android app: the web API does not exist there
   const speech = {
-    available: () => 'speechSynthesis' in window,
+    available: () => !!nativeSpeech() || 'speechSynthesis' in window,
     /** speak(text, { onend, onerror }) → true if the request was accepted. Callbacks fire once, at most. */
     speak(text, cb) {
       if (!speech.available()) return false;
       cb = cb || {};
+      if (nativeSpeech()) return nativeSpeech().speak(text, cb);
       try {
         window.speechSynthesis.cancel();
         const u = new SpeechSynthesisUtterance(text);
@@ -166,7 +170,10 @@
         return true;
       } catch (e) { return false; }
     },
-    stop() { if (speech.available()) { try { window.speechSynthesis.cancel(); } catch (e) { /* ignore */ } } }
+    stop() {
+      if (nativeSpeech()) { nativeSpeech().stopSpeaking(); return; }
+      if (speech.available()) { try { window.speechSynthesis.cancel(); } catch (e) { /* ignore */ } }
+    }
   };
 
   // --- Misc helpers --------------------------------------------------------

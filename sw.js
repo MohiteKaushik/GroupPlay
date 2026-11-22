@@ -1,17 +1,19 @@
-/* GroupPlay service worker: cache-first, everything precached on first visit.
+/* PlayAnywhere service worker: cache-first, everything precached on first visit.
  * VERSION is bumped by `node tools/release.js` before every deploy. A changed sw.js makes the browser
  * install the new version, which fetches fresh copies of every file below and drops the old cache.
  * While VERSION is unchanged nothing is ever re-downloaded, which is the point on a 2G connection.
  */
-const VERSION = '2026.10.26-4';
+const VERSION = '2026.11.22-2';
 const CACHE = 'groupplay-' + VERSION;
 const ASSETS = [
   './',
   './index.html',
+  './privacy.html',
   './manifest.webmanifest',
   './css/app.css',
   './js/version.js',
   './js/config.js',
+  './js/native.js',
   './js/games.js',
   './js/decks.js',
   './js/engine.js',

@@ -9,3 +9,7 @@
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: no-referrer
+# Android reads this file to confirm the app and this site belong together (join links open the app).
+/.well-known/assetlinks.json
+  Content-Type: application/json
+  Cache-Control: no-cache
